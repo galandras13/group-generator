@@ -56,6 +56,15 @@ def get_all_possible_groups(students, group_size):
     return [[student for student in group] for group in itertools.combinations(students, group_size)]
 
 
+def remove_students_from_group(students, groups: list):
+    i = 0
+    while i < len(groups):
+        for student in students:
+            if student in groups[i]:
+                groups.remove(groups[i])
+        i += 1
+
+
 def generate_groups(file, group_size):
     previous_groups = get_prevoius_groups_from_file(file)
     students = get_all_students(previous_groups)
