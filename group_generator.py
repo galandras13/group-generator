@@ -19,7 +19,7 @@ def write_results(results):
         file.close()
     else:
         for i in range(size):
-            file = open(f"output_{i + 1}", 'w')
+            file = open(f"output_{i + 1}.txt", 'w')
             group = ""
             for j in range(len(results[i])):
                 group += f"{results[i][j]}, "
