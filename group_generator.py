@@ -66,6 +66,21 @@ def remove_students_from_group(groups: list, students):
                 i += 1
 
 
+def get_optimal_groups(groups):
+    result = []
+    optimal_groups = groups[:]
+    i = 0
+    while i < len(optimal_groups):
+        variation = []
+        while len(optimal_groups) > 0:
+            variation.append(optimal_groups[0])
+            remove_students_from_group(optimal_groups, optimal_groups[0])
+        result.append(variation)
+        i += 1
+        optimal_groups = groups[i:]
+    return result
+
+
 def generate_groups(file, group_size):
     previous_groups = get_prevoius_groups_from_file(file)
     students = get_all_students(previous_groups)
@@ -75,17 +90,17 @@ def generate_groups(file, group_size):
         group_size = get_group_size()
 
     possible_groups = get_all_possible_groups(students, group_size)
-    optimal_groups = []
+    groups = []
     i = 0
     while i < len(possible_groups):
         if not had_common_group(previous_groups, possible_groups[i]):
-            optimal_groups.append(possible_groups[i])
+            groups.append(possible_groups[i])
             # remove_students_from_group(possible_groups, possible_groups[i])
             # i = 0
-        else:
-            pass
+        # else:
+        #     pass
         i += 1
-    return optimal_groups
+    return get_optimal_groups(groups)
 
 
 def get_group_size():
