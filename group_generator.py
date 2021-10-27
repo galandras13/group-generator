@@ -56,13 +56,14 @@ def get_all_possible_groups(students, group_size):
     return [[student for student in group] for group in itertools.combinations(students, group_size)]
 
 
-def remove_students_from_group(students, groups: list):
-    i = 0
-    while i < len(groups):
-        for student in students:
+def remove_students_from_group(groups: list, students):
+    for student in students:
+        i = 0
+        while i < len(groups):
             if student in groups[i]:
                 groups.remove(groups[i])
-        i += 1
+            else:
+                i += 1
 
 
 def generate_groups(file, group_size):
@@ -75,9 +76,15 @@ def generate_groups(file, group_size):
 
     possible_groups = get_all_possible_groups(students, group_size)
     optimal_groups = []
-    for possible_group in possible_groups:
-        if not had_common_group(previous_groups, possible_group):
-            optimal_groups.append(possible_group)
+    i = 0
+    while i < len(possible_groups):
+        if not had_common_group(previous_groups, possible_groups[i]):
+            optimal_groups.append(possible_groups[i])
+            # remove_students_from_group(possible_groups, possible_groups[i])
+            # i = 0
+        else:
+            pass
+        i += 1
     return optimal_groups
 
 
@@ -93,7 +100,7 @@ def main():
     # generate_groups('test_.txt', group_size)
 
     print(generate_groups(INPUTFILE, 2))
-    write_results(generate_groups(INPUTFILE, 2))
+    # write_results(generate_groups(INPUTFILE, 2))
 
     # TODO:
     # - generate different variations of optimal groups
