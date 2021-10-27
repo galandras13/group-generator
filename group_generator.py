@@ -9,22 +9,15 @@ def write_results(results):
     if size < 2:
         file = open("output.txt", 'w')
         if size == 1:
-            group = ""
-            for i in range(len(results[0])):
-                group += f"{results[0][i]}, "
-            group = group[:-2]
-            file.write(group)
+            file.write(", ".join(results[0][0]))
         else:
             file.write("not possible to form groups")
         file.close()
     else:
         for i in range(size):
             file = open(f"output_{i + 1}.txt", 'w')
-            group = ""
             for j in range(len(results[i])):
-                group += f"{results[i][j]}, "
-            group = group[:-2]
-            file.write(group + '\n')
+                file.write(", ".join(results[i][j]) + '\n')
             file.close()
 
 
@@ -100,6 +93,7 @@ def generate_groups(file, group_size):
         # else:
         #     pass
         i += 1
+    print(groups)
     return get_optimal_groups(groups)
 
 
@@ -114,8 +108,8 @@ def main():
     # group_size = get_group_size()
     # generate_groups('test_.txt', group_size)
 
-    print(generate_groups(INPUTFILE, 2))
-    # write_results(generate_groups(INPUTFILE, 2))
+    # print(generate_groups(INPUTFILE, 2))
+    write_results(generate_groups(INPUTFILE, 2))
 
     # TODO:
     # - generate different variations of optimal groups
