@@ -4,6 +4,30 @@ import itertools
 INPUTFILE = "SPOILER_test_input.txt"
 
 
+def write_results(results):
+    size = len(results)
+    if size < 2:
+        file = open("output.txt", 'w')
+        if size == 1:
+            group = ""
+            for i in range(len(results[0])):
+                group += f"{results[0][i]}, "
+            group = group[:-2]
+            file.write(group)
+        else:
+            file.write("not possible to form groups")
+        file.close()
+    else:
+        for i in range(size):
+            file = open(f"output_{i + 1}", 'w')
+            group = ""
+            for j in range(len(results[i])):
+                group += f"{results[i][j]}, "
+            group = group[:-2]
+            file.write(group + '\n')
+            file.close()
+
+
 def get_prevoius_groups_from_file(file_name):
     file = open(file_name, 'r')
     previous_groups = [group.replace('\n', '').split(', ') for group in file.readlines()]
@@ -59,8 +83,9 @@ def main():
     # group_size = get_group_size()
     # generate_groups('test_.txt', group_size)
 
-    print(generate_groups(INPUTFILE, 3))
-    
+    print(generate_groups(INPUTFILE, 2))
+    write_results(generate_groups(INPUTFILE, 2))
+
     # TODO:
     # - generate different variations of optimal groups
     #   of all students if possible
