@@ -1,9 +1,6 @@
 import itertools
 
 
-INPUTFILE = "SPOILER_test_input.txt"
-
-
 def write_results(results):
     size = len(results)
     if size < 2:
@@ -94,7 +91,7 @@ def generate_groups(file, group_size):
         #     pass
         i += 1
     print(groups)
-    return get_optimal_groups(groups)
+    write_results(get_optimal_groups(groups))
 
 
 def get_group_size():
@@ -105,11 +102,8 @@ def get_group_size():
 
 
 def main():
-    # group_size = get_group_size()
-    # generate_groups('test_.txt', group_size)
-
-    # print(generate_groups(INPUTFILE, 2))
-    write_results(generate_groups(INPUTFILE, 2))
+    group_size = get_group_size()
+    generate_groups('test_.txt', group_size)
 
     # TODO:
     # - generate different variations of optimal groups
